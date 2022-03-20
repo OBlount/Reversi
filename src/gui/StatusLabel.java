@@ -14,7 +14,7 @@ class StatusLabel extends JLabel
 	private String aPrefix;
 	private String aSuffix;
 
-	public StatusLabel(int fontSize, boolean preSel, boolean sufSel)
+	public StatusLabel(int fontSize, Players preSel, boolean sufSel)
 	{
 		this.setFont(new Font("Serif", Font.PLAIN, fontSize));
 		this.setPrefix(preSel);
@@ -23,9 +23,9 @@ class StatusLabel extends JLabel
 		this.setText(getPrefix() + " - " + getSuffix());
 	}
 
-	public void setPrefix(boolean selection)
+	public void setPrefix(Players selection)
 	{
-		if(selection)
+		if(selection == Players.WHITE)
 			this.aPrefix = aPlayerWhite;
 		else
 			this.aPrefix = aPlayerBlack;

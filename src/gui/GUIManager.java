@@ -8,13 +8,15 @@ import java.awt.BorderLayout;
 
 public class GUIManager
 {
+
 	private final int aHeight = 500;
 	private final int aWidth = 500;
 	private final Color GREEN = new Color(150, 255, 150);
 
 	private JFrame guiFrame = new JFrame();
 	private Board board1 = new Board(GREEN);
-	private StatusLabel topLabel1 = new StatusLabel(24, true, true);
+	private StatusLabel topLabel1 = new StatusLabel(24, Players.WHITE, true);
+	private GreedyButton AIButton1 = new GreedyButton(24, Players.WHITE);
 
 	public void createGUI()
 	{
@@ -25,6 +27,7 @@ public class GUIManager
 		guiFrame.getContentPane().setLayout(new BorderLayout());
 		guiFrame.getContentPane().add(board1, BorderLayout.CENTER);
 		guiFrame.getContentPane().add(topLabel1, BorderLayout.PAGE_START);
+		guiFrame.getContentPane().add(AIButton1, BorderLayout.PAGE_END);
 
 		guiFrame.pack();
 		guiFrame.setLocationRelativeTo(null);
