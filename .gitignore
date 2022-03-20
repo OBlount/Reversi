@@ -2,7 +2,3 @@
 *.class
 build
 
-# Build scripts
-*.sh
-clean
-

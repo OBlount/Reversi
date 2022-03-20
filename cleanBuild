@@ -1,0 +1,43 @@
+#!/bin/bash
+## Clean build script to build program
+
+# Flags:
+# 1) -r = Clean build and RUN
+
+# Make sure location is the root of project
+if [ ! -f "cleanBuild" ] || [ ! -d "src/" ]
+then
+	echo "Exiting: Please change to the directory with the cleanBuild script"
+	exit 0
+fi
+
+# Make build/ dir if needed
+# Remove/clean build folder
+if [ ! -d "build/" ]
+then
+	mkdir build/
+	echo "Created build/"
+else
+	rm -r build/*
+	echo "Cleaned build/"
+fi
+
+# Compile
+cp -r src/* build/
+javac -d build/ src/*.java src/gui/*java
+
+# Grab flags
+if [ $? -eq 0 ]
+then
+	echo "Compiled"
+
+	while getopts r flag
+	do
+		case "${flag}" in
+			r) echo "Attempting to run..."; cd build && java Main;;
+		esac
+	done
+fi
+
+echo "Done"
+
