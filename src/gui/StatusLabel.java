@@ -23,6 +23,11 @@ class StatusLabel extends JLabel
 		this.setText(getPrefix() + " - " + getSuffix());
 	}
 
+	public StatusLabel(int fontSize)
+	{
+		this(fontSize, Players.WHITE, true);
+	}
+
 	public void setPrefix(Players selection)
 	{
 		if(selection == Players.WHITE)

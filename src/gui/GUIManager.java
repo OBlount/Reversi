@@ -15,8 +15,8 @@ public class GUIManager
 
 	private JFrame guiFrame = new JFrame();
 	private Board board1 = new Board(GREEN);
-	private StatusLabel topLabel1 = new StatusLabel(24, Players.WHITE, true);
-	private GreedyButton AIButton1 = new GreedyButton(24, Players.WHITE);
+	private StatusLabel topLabel1 = new StatusLabel(24);
+	private GreedyButton AIButton1 = new GreedyButton(24);
 
 	public void createGUI()
 	{

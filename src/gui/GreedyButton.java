@@ -19,5 +19,10 @@ class GreedyButton extends JButton
 
 		this.setText(aToPlayTxt);
 	}
+
+	public GreedyButton(int fontSize)
+	{
+		this(fontSize, Players.WHITE);
+	}
 }
 
