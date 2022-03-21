@@ -10,7 +10,7 @@ public class GUIManager
 {
 
 	private final int aHeight = 500;
-	private final int aWidth = 500;
+	private final int aWidth = 450;
 	private final Color GREEN = new Color(150, 255, 150);
 
 	private JFrame guiFrame = new JFrame();
@@ -22,7 +22,7 @@ public class GUIManager
 	{
 		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		guiFrame.setTitle("Reversi");
-		guiFrame.setPreferredSize(new Dimension(aHeight, aWidth));
+		guiFrame.setPreferredSize(new Dimension(aWidth, aHeight));
 
 		guiFrame.getContentPane().setLayout(new BorderLayout());
 		guiFrame.getContentPane().add(board1, BorderLayout.CENTER);
