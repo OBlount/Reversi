@@ -3,19 +3,19 @@ package gui;
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Graphics;
 
 class ColourButton extends JButton
 {
-	Color aDrawColour; 
-	Color aBorderColour;
-	int aBorderSize; 
+	private Color aDrawColour; 
+	private int aID;
 
-	public ColourButton(Color colour, int borderWidth, Color borderColour)
+	public ColourButton(Color colour)
 	{
-		aBorderSize = borderWidth;
 		aDrawColour = colour;
-		aBorderColour = borderColour;
+
+		this.setLayout(new GridLayout(1, 1));
 	}
 
 	public Color getDrawColour()
@@ -28,37 +28,23 @@ class ColourButton extends JButton
 		this.aDrawColour = drawColour;
 	}
 
-	public Color getBorderColour()
+	public int getID()
 	{
-		return aBorderColour;
+		return aID;
 	}
 
-	public void setBorderColour(Color borderColour)
+	public void setID(int id)
 	{
-		this.aBorderColour = borderColour;
+		this.aID = id;
 	}
 
-	public int getBorderSize()
-	{
-		return aBorderSize;
-	}
-
-	public void setBorderSize(int borderSize)
-	{
-		this.aBorderSize = borderSize;
-	}
-
+	@Override
 	protected void paintComponent(Graphics grph)
 	{
-		if (aBorderColour != null)
-		{
-			grph.setColor(aBorderColour);
-			grph.fillRect(0, 0, getWidth(), getHeight());
-		}
 		if (aDrawColour != null)
 		{
 			grph.setColor(aDrawColour);
-			grph.fillRect(aBorderSize, aBorderSize, getWidth() - aBorderSize * 2, getHeight() - aBorderSize * 2);
+			grph.fillRect(1, 1, getWidth() - 2, getHeight() - 2);
 		}
 	}
 }
