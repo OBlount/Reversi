@@ -1,5 +1,7 @@
 package gui;
 
+import game.Players;
+
 import javax.swing.JLabel;
 
 import java.awt.Font;

@@ -1,10 +1,14 @@
 package gui;
 
+import game.Players;
+
 import javax.swing.JFrame;
+import javax.swing.JComponent;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 
 public class GUIManager
 {
@@ -53,6 +57,44 @@ public class GUIManager
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+
+	private void forceRefresh(JFrame frame)
+	{
+		frame.invalidate();
+		frame.validate();
+		frame.repaint();
+	}
+
+	public void listen(ActionListener main)
+	{
+		board1.listen(main);
+		board2.listen(main);
+	}
+
+	public void updateBoard(Players[] state)
+	{
+		board1.drawBoard(state);
+		board2.drawBoard(state);
+		forceRefresh(frame1);
+		forceRefresh(frame2);
+	}
+
+	public int getButtonIDFromEventSource(JComponent source) throws Exception
+	{
+		int ID = board1.getButtonIDFromEventSource(source);
+
+		if(ID != -1)
+			return ID;
+
+		else
+			ID = board2.getButtonIDFromEventSource(source);
+
+		if(ID != -1)
+			return ID;
+
+		else
+			throw new Exception();
 	}
 
 	public int getHeight()

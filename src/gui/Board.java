@@ -1,5 +1,7 @@
 package gui;
 
+import game.Players;
+
 import javax.swing.JPanel;
 import javax.swing.JComponent;
 
@@ -49,18 +51,49 @@ class Board extends JPanel implements ActionListener
 		return this.aGridColour;
 	}
 
+	public void drawBoard(Players[] boardState)
+	{
+		int j = 0;
+
+		for(int i = 0; i < (aRows * aCols); ++i)
+			aArrayButtons[i].removeAll();
+
+		for(Players state : boardState)
+		{
+			if(state == Players.NONE)
+			{
+				j++;
+				continue;
+			}
+
+			else
+				aArrayButtons[j++].add(new Checker(state));
+		}
+	}
+
+	public void listen(ActionListener main)
+	{
+		for(ColourButton butt : aArrayButtons)
+		{
+			butt.addActionListener(main);
+		}
+	}
+
+	public int getButtonIDFromEventSource(JComponent source)
+	{
+		for(ColourButton butt : aArrayButtons)
+		{
+			if(source == butt)
+				return butt.getID();
+		}
+
+		return -1;
+	}
+
 	private void populateButtonsArray(int i)
 	{
 		aArrayButtons[i] = new ColourButton(getGridColour());
 		aArrayButtons[i].setID(i);
-
-		// Create the starting board:
-		if(aArrayButtons[i].getID() == 27 || aArrayButtons[i].getID() == 36)
-			aArrayButtons[i].add(new Checker(Players.WHITE));
-
-		if(aArrayButtons[i].getID() == 28 || aArrayButtons[i].getID() == 35)
-			aArrayButtons[i].add(new Checker(Players.BLACK));
-
 		aArrayButtons[i].addActionListener(this);
 		this.add(aArrayButtons[i]);
 	}

@@ -24,7 +24,7 @@ fi
 
 # Compile
 cp -r src/* build/
-javac -d build/ src/*.java src/gui/*java
+javac -d build/ src/*.java src/gui/*.java src/game/*.java
 
 # Grab flags
 if [ $? -eq 0 ]
