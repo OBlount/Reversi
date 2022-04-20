@@ -36,6 +36,8 @@ class StatusLabel extends JLabel
 			this.aPrefix = aPlayerWhite;
 		else
 			this.aPrefix = aPlayerBlack;
+
+		this.setText(getPrefix() + " - " + getSuffix());
 	}
 
 	public String getPrefix()
@@ -49,6 +51,8 @@ class StatusLabel extends JLabel
 			this.aSuffix = aToPlay;
 		else
 			this.aSuffix = aNotToPlay;
+
+		this.setText(getPrefix() + " - " + getSuffix());
 	}
 
 	public String getSuffix()

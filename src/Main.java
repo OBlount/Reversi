@@ -1,4 +1,5 @@
 import game.BoardState;
+import game.Players;
 import gui.GUIManager;
 
 import javax.swing.JComponent;
@@ -27,6 +28,7 @@ class Main implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		int ID;
+		Players whoJustPlayed;
 
 		try
 		{
@@ -39,9 +41,23 @@ class Main implements ActionListener
 			return;
 		}
 
-		gs.addChecker(ID);
+		try
+		{
+			whoJustPlayed = gm.getInteractedBoard((JComponent) e.getSource());
+		}
+
+		catch(Exception err)
+		{
+			System.out.println("[ERROR] Something went wrong getting whose turn");
+			return;
+		}
+
+		if(!(gs.addChecker(ID, whoJustPlayed)))
+			return;
+
 		gm.updateBoard(gs.getBoardState());
 		gs.advanceTurn();
+		gm.setStatusLabel(gs.getToPlay());
 	}
 }
 

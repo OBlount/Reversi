@@ -97,6 +97,38 @@ public class GUIManager
 			throw new Exception();
 	}
 
+	public Players getInteractedBoard(JComponent source) throws Exception
+	{
+		int ID = board1.getButtonIDFromEventSource(source);
+
+		if(ID != -1)
+			return Players.WHITE;
+
+		else
+			ID = board2.getButtonIDFromEventSource(source);
+
+		if(ID != -1)
+			return Players.BLACK;
+
+		else
+			throw new Exception();
+	}
+
+	public void setStatusLabel(Players toPlay)
+	{
+		if(toPlay == Players.WHITE)
+		{
+			topLabel1.setSuffix(true);
+			topLabel2.setSuffix(false);
+		}
+
+		else
+		{
+			topLabel1.setSuffix(false);
+			topLabel2.setSuffix(true);
+		}
+	}
+
 	public int getHeight()
 	{
 		return aHeight;

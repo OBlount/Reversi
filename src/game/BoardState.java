@@ -29,9 +29,21 @@ public class BoardState
 		return this.aToPlay;
 	}
 
-	public void addChecker(int ID)
+	// Returns TRUE if the checker was added, FALSE if not valid:
+	public boolean addChecker(int ID, Players whoPlayed)
 	{
+		CheckValidSpace checker = new CheckValidSpace();
+
+		// Check if it's player's turn to play:
+		if(whoPlayed != getToPlay())
+			return false;
+
+		// Check if the space is already taken:
+		if(checker.spaceIsTaken(getBoardState(), ID))
+			return false;
+
 		aBoardStateArray[ID] = getToPlay();
+		return true;
 	}
 
 	public void advanceTurn()
