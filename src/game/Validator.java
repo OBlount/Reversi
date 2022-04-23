@@ -11,9 +11,9 @@ class Validator
 			return false;
 	}
 
-	protected int[][] compileDirections(int spaceID, Players[][] boardState, Players toPlay)
+	protected Move[] compileDirections(int spaceID, Players[][] boardState, Players toPlay)
 	{
-		int[][] moveSets = new int[8][3];
+		Move[] moveSets = new Move[8];
 		int index = 0;
 		int pieces;
 		int x = spaceID % 8;
@@ -37,9 +37,8 @@ class Validator
 					continue;
 
 				pieces = countPiecesTaken(x, y, boardState, xOffset, yOffset, capturingPiece, x, y);
-				moveSets[index][0] = pieces;
-				moveSets[index][1] = xOffset;
-				moveSets[index++][2] = yOffset;
+				Move mv = new Move(spaceID, xOffset, yOffset, pieces);
+				moveSets[index++] = mv;
 			}
 		}
 

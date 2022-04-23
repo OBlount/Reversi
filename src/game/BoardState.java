@@ -43,7 +43,7 @@ public class BoardState
 	{
 		boolean captured = false;
 		Validator validator = new Validator();
-		int[][] moveSets;
+		Move[] moveSets;
 
 		// Check if it's player's turn to play:
 		if(whoPlayed != getToPlay())
@@ -57,12 +57,12 @@ public class BoardState
 		moveSets = validator.compileDirections(spaceID, convertTo2D(), getToPlay());
 		for(int i = 0; i < 8; ++i)
 		{
-			if(moveSets[i][0] == 0)
+			if(!(moveSets[i].isValid()))
 				continue;
 
-			for(int j = 0; j <= moveSets[i][0]; ++j)
+			for(int j = 0; j <= moveSets[i].getPiecesCaptured(); ++j)
 			{
-				int offset = ((moveSets[i][1] * j) + (((int) Math.sqrt(aBoardSize) * moveSets[i][2]) * j));
+				int offset = ((moveSets[i].getXDirection() * j) + (((int) Math.sqrt(aBoardSize) * moveSets[i].getYDirection()) * j));
 				aBoardStateArray[spaceID + offset] = getToPlay();
 				captured = true;
 			}
