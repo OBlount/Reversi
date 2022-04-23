@@ -31,6 +31,7 @@ public class GUIManager
 	{
 		// White player's frame:
 		frame1.setTitle("Reversi - White player");
+		frame1.setLocation(500, 300);
 
 		frame1.getContentPane().setLayout(new BorderLayout());
 		frame1.getContentPane().add(board1, BorderLayout.CENTER);
@@ -41,6 +42,7 @@ public class GUIManager
 
 		// Black player's frame:
 		frame2.setTitle("Reversi - Black player");
+		frame2.setLocation(1000, 300);
 
 		frame2.getContentPane().setLayout(new BorderLayout());
 		frame2.getContentPane().add(board2, BorderLayout.CENTER);
@@ -55,7 +57,6 @@ public class GUIManager
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(aWidth, aHeight));
 		frame.pack();
-		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
