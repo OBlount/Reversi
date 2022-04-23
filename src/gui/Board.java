@@ -34,7 +34,7 @@ class Board extends JPanel implements ActionListener
 
 		else
 		{
-			for(int i = 63; i >= 0; --i)
+			for(int i = (aRows * aCols) - 1; i >= 0; --i)
 			{
 				this.populateButtonsArray(i);
 			}

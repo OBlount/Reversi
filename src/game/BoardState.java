@@ -1,5 +1,7 @@
 package game;
 
+import java.lang.Math;
+
 public class BoardState
 {
 	private final int aBoardSize = 8 * 8;
@@ -10,7 +12,9 @@ public class BoardState
 	public BoardState()
 	{
 		for(int i = 0; i < aBoardSize; ++i)
+		{
 			aBoardStateArray[i] = Players.NONE;
+		}
 
 		// Prepare the board with the starting pieces:
 		aBoardStateArray[27] = Players.WHITE;
@@ -24,26 +28,47 @@ public class BoardState
 		return aBoardStateArray;
 	}
 
+	public int getBoardSize()
+	{
+		return this.aBoardSize;
+	}
+
 	public Players getToPlay()
 	{
 		return this.aToPlay;
 	}
 
-	// Returns TRUE if the checker was added, FALSE if not valid:
-	public boolean addChecker(int ID, Players whoPlayed)
+	// Returns TRUE if the checker was added, FALSE if space was invalid:
+	public boolean addChecker(int spaceID, Players whoPlayed)
 	{
-		CheckValidSpace checker = new CheckValidSpace();
+		boolean captured = false;
+		Validator validator = new Validator();
+		int[][] moveSets;
 
 		// Check if it's player's turn to play:
 		if(whoPlayed != getToPlay())
 			return false;
 
 		// Check if the space is already taken:
-		if(checker.spaceIsTaken(getBoardState(), ID))
+		if(validator.spaceIsTaken(getBoardState(), spaceID))
 			return false;
 
-		aBoardStateArray[ID] = getToPlay();
-		return true;
+		// Capture appropriate checkers:
+		moveSets = validator.compileDirections(spaceID, convertTo2D(), getToPlay());
+		for(int i = 0; i < 8; ++i)
+		{
+			if(moveSets[i][0] == 0)
+				continue;
+
+			for(int j = 0; j <= moveSets[i][0]; ++j)
+			{
+				int offset = ((moveSets[i][1] * j) + (((int) Math.sqrt(aBoardSize) * moveSets[i][2]) * j));
+				aBoardStateArray[spaceID + offset] = getToPlay();
+				captured = true;
+			}
+		}
+
+		return captured;
 	}
 
 	public void advanceTurn()
@@ -55,10 +80,45 @@ public class BoardState
 			aToPlay = Players.WHITE;
 	}
 
+	protected Players[][] convertTo2D()
+	{
+		int sqrt = (int) Math.sqrt(aBoardSize);
+		Players[] boardState1D = getBoardState();
+		Players[][] boardState2D = new Players[sqrt][sqrt];
+
+		for(int i = 0; i < sqrt; ++i)
+		{
+			for(int j = 0; j < sqrt; ++j)
+			{
+				boardState2D[i][j] = boardState1D[((i * sqrt) + j)];
+			}
+		}
+
+		return boardState2D;
+	}
+
 	private void clearBoard()
 	{
 		for(int i = 0; i < aBoardSize; ++i)
+		{
 			aBoardStateArray[i] = Players.NONE;
+		}
+	}
+
+	private void printBoard2D()
+	{
+		int sqrt = (int) Math.sqrt(aBoardSize);
+		Players[][] boardState2D = convertTo2D();
+
+		for(int i = 0; i < sqrt; ++i)
+		{
+			for(int j = 0; j < sqrt; ++j)
+			{
+				System.out.print("\t" + boardState2D[i][j]);
+			}
+
+			System.out.print("\n\r");
+		}
 	}
 }
 
