@@ -45,6 +45,32 @@ class Validator
 		return moveSets;
 	}
 
+	protected boolean checkIfAnySpacesAreValid(Players[] boardState1D, Players[][] boardState2D, Players toPlay, int boardSize)
+	{
+		boolean isValid = false;
+		Move[] moveSets;
+
+		for(int i = 0; i < boardSize; ++i)
+		{
+			// Skip squares where Checkers already exist:
+			if(spaceIsTaken(boardState1D, i))
+				continue;
+
+			moveSets = compileDirections(i, boardState2D, toPlay);
+
+			for(int j = 0; j < 8; ++j)
+			{
+				if(moveSets[j].isValid())
+				{
+					isValid = true;
+					break;
+				}
+			}
+		}
+
+		return isValid;
+	}
+
 	private int countPiecesTaken(int x, int y, Players[][] boardState, int xDirection, int yDirection, Players capture, int originX, int originY)
 	{
 		int pieces = 0;

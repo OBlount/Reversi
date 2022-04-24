@@ -52,11 +52,24 @@ class Main implements ActionListener
 			return;
 		}
 
+
 		if(!(gs.addChecker(ID, whoJustPlayed)))
 			return;
 
 		gm.updateBoard(gs.getBoardState());
 		gs.advanceTurn();
+
+		if(!(gs.checkIfAnySpacesAreValid()))
+		{
+			gs.advanceTurn();
+
+			// End game if there are no valid spaces, even after an advance:
+			if(!(gs.checkIfAnySpacesAreValid()))
+				gs.endGame();
+
+			return;
+		}
+
 		gm.setStatusLabel(gs.getToPlay());
 	}
 }

@@ -80,6 +80,18 @@ public class BoardState
 			aToPlay = Players.WHITE;
 	}
 
+	public boolean checkIfAnySpacesAreValid()
+	{
+		Validator validator = new Validator();
+
+		return validator.checkIfAnySpacesAreValid(getBoardState(), convertTo2D(), getToPlay(), getBoardSize());
+	}
+
+	public void endGame()
+	{
+		return;
+	}
+
 	protected Players[][] convertTo2D()
 	{
 		int sqrt = (int) Math.sqrt(aBoardSize);
