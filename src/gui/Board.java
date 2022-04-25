@@ -98,8 +98,7 @@ class Board extends JPanel implements ActionListener
 		this.add(aArrayButtons[i]);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e)
+	private void onClick(ActionEvent e)
 	{
 		JComponent source = (JComponent) e.getSource();
 		for(ColourButton butt : aArrayButtons)
@@ -107,6 +106,12 @@ class Board extends JPanel implements ActionListener
 			if(source == butt)
 				System.out.println("Square ID: " + butt.getID());
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		// onClick(e);
 	}
 }
 

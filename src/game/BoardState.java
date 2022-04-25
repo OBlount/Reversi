@@ -92,6 +92,34 @@ public class BoardState
 		return;
 	}
 
+	public boolean playGreedyAI(Players whoPlayed)
+	{
+		boolean isPlayed;
+		GreedyAI AI;
+		Move selectedMove[];
+
+		// Skip if it isn't their turn:
+		if(whoPlayed != getToPlay())
+			return false;
+
+		AI = new GreedyAI(whoPlayed);
+
+		try
+		{
+			selectedMove = AI.computeBestMove(getBoardState(), convertTo2D(), getBoardSize());
+		}
+
+		catch(Exception err)
+		{
+			System.out.println("[ERROR] Could not find best move");
+			return false;
+		}
+
+		// Try to add this best move:
+		isPlayed = addChecker(selectedMove[0].getOrigin(), whoPlayed);
+		return isPlayed;
+	}
+
 	protected Players[][] convertTo2D()
 	{
 		int sqrt = (int) Math.sqrt(aBoardSize);

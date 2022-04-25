@@ -69,8 +69,13 @@ public class GUIManager
 
 	public void listen(ActionListener main)
 	{
+		// Add listners to all game squares:
 		board1.listen(main);
 		board2.listen(main);
+
+		// Add listeners to greedy buttons:
+		AIButton1.listen(main);
+		AIButton2.listen(main);
 	}
 
 	public void updateBoard(Players[] state)
@@ -128,6 +133,18 @@ public class GUIManager
 			topLabel1.setSuffix(false);
 			topLabel2.setSuffix(true);
 		}
+	}
+
+	public Players greedyButtonIsPlayed(JComponent source)
+	{
+		if(source == AIButton1)
+			return AIButton1.getTeam();
+
+		if(source == AIButton2)
+			return AIButton2.getTeam();
+
+		else
+			return Players.NONE;
 	}
 
 	public int getHeight()

@@ -1,6 +1,6 @@
 import game.BoardState;
-import game.Players;
 import gui.GUIManager;
+import game.Players;
 
 import javax.swing.JComponent;
 
@@ -14,7 +14,7 @@ class Main implements ActionListener
 
 	public static void main(String[] args)
 	{
-		Main program = new Main();
+		Main game = new Main();
 	}
 
 	public Main()
@@ -29,36 +29,44 @@ class Main implements ActionListener
 	{
 		int ID;
 		Players whoJustPlayed;
+		Players isGreedyPlaying;
 
-		try
+		// If greedyAI is played:
+		isGreedyPlaying = gm.greedyButtonIsPlayed((JComponent) e.getSource());
+		if(isGreedyPlaying != Players.NONE)
 		{
-			ID = gm.getButtonIDFromEventSource((JComponent) e.getSource());
-		}
+			if(gs.playGreedyAI(isGreedyPlaying))
+				advanceTurn();
 
-		catch(Exception err)
-		{
-			System.out.println("[ERROR] Something went wrong when trying to find an ID");
 			return;
 		}
 
 		try
 		{
+			ID = gm.getButtonIDFromEventSource((JComponent) e.getSource());
 			whoJustPlayed = gm.getInteractedBoard((JComponent) e.getSource());
 		}
 
 		catch(Exception err)
 		{
-			System.out.println("[ERROR] Something went wrong getting whose turn");
+			System.out.println("[ERROR] Something went wrong when trying to find an ID and/or whose turn");
 			return;
 		}
 
-
+		// Check if the space selected is invalid:
 		if(!(gs.addChecker(ID, whoJustPlayed)))
 			return;
 
-		gm.updateBoard(gs.getBoardState());
-		gs.advanceTurn();
+		advanceTurn();
+	}
 
+	private void advanceTurn()
+	{
+		this.gm.updateBoard(gs.getBoardState());
+		this.gs.advanceTurn();
+		this.gm.setStatusLabel(gs.getToPlay());
+
+		// If spaces aren't available, then check 'end game' condition:
 		if(!(gs.checkIfAnySpacesAreValid()))
 		{
 			gs.advanceTurn();
@@ -66,11 +74,7 @@ class Main implements ActionListener
 			// End game if there are no valid spaces, even after an advance:
 			if(!(gs.checkIfAnySpacesAreValid()))
 				gs.endGame();
-
-			return;
 		}
-
-		gm.setStatusLabel(gs.getToPlay());
 	}
 }
 
