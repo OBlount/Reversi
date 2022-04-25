@@ -27,7 +27,7 @@ class StatusLabel extends JLabel
 
 	public StatusLabel(int fontSize)
 	{
-		this(fontSize, Players.WHITE, true);
+		this(fontSize, Players.BLACK, true);
 	}
 
 	public void setPrefix(Players selection)

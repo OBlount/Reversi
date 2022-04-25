@@ -7,7 +7,7 @@ public class BoardState
 	private final int aBoardSize = 8 * 8;
 
 	private Players[] aBoardStateArray = new Players[aBoardSize];
-	private Players aToPlay = Players.WHITE;
+	private Players aToPlay = Players.BLACK;
 
 	public BoardState()
 	{

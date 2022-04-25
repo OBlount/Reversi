@@ -18,13 +18,13 @@ public class GUIManager
 	private final Color GREEN = new Color(150, 255, 150);
 
 	private JFrame frame1 = new JFrame();
-	private Board board1 = new Board(GREEN, false);
-	private StatusLabel topLabel1 = new StatusLabel(24);
+	private Board board1 = new Board(GREEN, true);
+	private StatusLabel topLabel1 = new StatusLabel(24, Players.WHITE, false);
 	private GreedyButton AIButton1 = new GreedyButton(24);
 
 	private JFrame frame2 = new JFrame();
-	private Board board2 = new Board(GREEN, true);
-	private StatusLabel topLabel2 = new StatusLabel(24, Players.BLACK, false);
+	private Board board2 = new Board(GREEN, false);
+	private StatusLabel topLabel2 = new StatusLabel(24);
 	private GreedyButton AIButton2 = new GreedyButton(24, Players.BLACK);
 
 	public void createGUI()
