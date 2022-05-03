@@ -11,16 +11,7 @@ public class BoardState
 
 	public BoardState()
 	{
-		for(int i = 0; i < aBoardSize; ++i)
-		{
-			aBoardStateArray[i] = Players.NONE;
-		}
-
-		// Prepare the board with the starting pieces:
-		aBoardStateArray[27] = Players.WHITE;
-		aBoardStateArray[28] = Players.BLACK;
-		aBoardStateArray[35] = Players.BLACK;
-		aBoardStateArray[36] = Players.WHITE;
+		setBoard();
 	}
 
 	public Players[] getBoardState()
@@ -36,6 +27,11 @@ public class BoardState
 	public Players getToPlay()
 	{
 		return this.aToPlay;
+	}
+
+	public void setToPlay(Players toPlay)
+	{
+		this.aToPlay = toPlay;
 	}
 
 	// Returns TRUE if the checker was added, FALSE if space was invalid:
@@ -87,9 +83,33 @@ public class BoardState
 		return validator.checkIfAnySpacesAreValid(getBoardState(), convertTo2D(), getToPlay(), getBoardSize());
 	}
 
+	// Returns an array where: arr[0] is White's score | arr[1] is Black's score:
+	public int[] getScores()
+	{
+		int[] scores = new int[2];
+		Players[] state = getBoardState();
+		int whiteScore = 0;
+		int blackScore = 0;
+
+		for(int i = 0; i < getBoardSize(); ++i)
+		{
+			if(state[i] == Players.WHITE)
+				whiteScore++;
+
+			else if(state[i] == Players.BLACK)
+				blackScore++;
+		}
+
+		scores[0] = whiteScore;
+		scores[1] = blackScore;
+
+		return scores;
+	}
+
 	public void endGame()
 	{
-		return;
+		setBoard();
+		setToPlay(Players.BLACK);
 	}
 
 	public boolean playGreedyAI(Players whoPlayed)
@@ -137,12 +157,18 @@ public class BoardState
 		return boardState2D;
 	}
 
-	private void clearBoard()
+	private void setBoard()
 	{
 		for(int i = 0; i < aBoardSize; ++i)
 		{
 			aBoardStateArray[i] = Players.NONE;
 		}
+
+		// Prepare the board with the starting pieces:
+		aBoardStateArray[27] = Players.WHITE;
+		aBoardStateArray[28] = Players.BLACK;
+		aBoardStateArray[35] = Players.BLACK;
+		aBoardStateArray[36] = Players.WHITE;
 	}
 
 	private void printBoard2D()

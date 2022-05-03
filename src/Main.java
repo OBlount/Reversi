@@ -19,6 +19,7 @@ class Main implements ActionListener
 
 	public Main()
 	{
+		// Game start up:
 		gm.listen(this);
 		gm.createGUI();
 		gm.updateBoard(gs.getBoardState());
@@ -73,8 +74,27 @@ class Main implements ActionListener
 
 			// End game if there are no valid spaces, even after an advance:
 			if(!(gs.checkIfAnySpacesAreValid()))
+			{
+				displayScores();
 				gs.endGame();
+				gm.setStatusLabel(gs.getToPlay());
+				gm.updateBoard(gs.getBoardState());
+			}
 		}
+	}
+
+	private void displayScores()
+	{
+		int[] results = gs.getScores();
+
+		if(results[0] == results[1])
+			gm.onEndGame(Players.NONE, results[0], results[1]);
+
+		else if(results [0] > results[1])
+			gm.onEndGame(Players.WHITE, results[0], results[1]);
+
+		else
+			gm.onEndGame(Players.BLACK, results[0], results[1]);
 	}
 }
 

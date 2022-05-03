@@ -4,6 +4,7 @@ import game.Players;
 
 import javax.swing.JFrame;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -145,6 +146,19 @@ public class GUIManager
 
 		else
 			return Players.NONE;
+	}
+
+	public void onEndGame(Players winner, int whiteScore, int blackScore)
+	{
+		String msg = null;
+
+		if(winner == Players.NONE)
+			msg = "<html><font size='15'>The game ended in a draw.";
+
+		else
+			msg = "<html><font size='15'> " + winner + " wins: " + whiteScore + " : " + blackScore + ".";
+
+		JOptionPane.showMessageDialog(null, msg, "Game Over!", JOptionPane.PLAIN_MESSAGE);
 	}
 
 	public int getHeight()
