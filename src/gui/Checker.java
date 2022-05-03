@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 
 class Checker extends JLabel
 {
@@ -32,7 +34,7 @@ class Checker extends JLabel
 
 	public Players getPlayerType()
 	{
-		return aPlayer;
+		return this.aPlayer;
 	}
 
 	public void flipPlayerType()
@@ -44,10 +46,20 @@ class Checker extends JLabel
 	}
 
 	@Override
-	protected void paintComponent(Graphics grph)
+	protected void paintComponent(Graphics g)
 	{
 		if (aPlayerColour != null)
 		{
+			Graphics2D grph = (Graphics2D) g;
+			grph.setStroke(new BasicStroke(3));
+
+			if(getPlayerType() == Players.WHITE)
+				grph.setColor(aBlackCheckerColour);
+
+			else
+				grph.setColor(aWhiteCheckerColour);
+
+			grph.drawOval(0, 8, 20, 20);
 			grph.setColor(aPlayerColour);
 			grph.fillOval(0, 8, 20, 20);
 		}
