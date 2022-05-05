@@ -63,14 +63,15 @@ class Main implements ActionListener
 
 	private void advanceTurn()
 	{
-		this.gm.updateBoard(gs.getBoardState());
-		this.gs.advanceTurn();
-		this.gm.setStatusLabel(gs.getToPlay());
+		gm.updateBoard(gs.getBoardState());
+		gs.advanceTurn();
+		gm.setStatusLabel(gs.getToPlay());
 
 		// If spaces aren't available, then check 'end game' condition:
 		if(!(gs.checkIfAnySpacesAreValid()))
 		{
 			gs.advanceTurn();
+			gm.setStatusLabel(gs.getToPlay());
 
 			// End game if there are no valid spaces, even after an advance:
 			if(!(gs.checkIfAnySpacesAreValid()))
