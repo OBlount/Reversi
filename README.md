@@ -1,5 +1,5 @@
 # Reversi - Java OOP coursework (SPR21-22)
-A fun little game wirtten in Java!
+A fun little game written in Java!
 
 ---
 
