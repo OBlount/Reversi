@@ -1,4 +1,5 @@
 # Bins
 *.class
-build
+*.jar
+build/
 
